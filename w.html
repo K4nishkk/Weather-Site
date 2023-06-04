@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Weather-Site</title>
+        <link rel="stylesheet" href="w.css">   <!--including external style sheet-->
+        <script src="w.js"></script>   <!--including external javascript file-->
+
+        <!--Weather icons-->
+        <script src="https://kit.fontawesome.com/15fd5d58f5.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <div id="info">
+            <p>Enter City Name: <input type="text" id="loc">  <button onclick="getData(document.getElementById('loc').value)">submit</button></p>
+        </div>
+        
+        <div id="info">
+            <i class="fas fa-cloud"></i>
+            <p>Temperature: <span id="temp" style="display:inline"></span>°C</p>
+        </div>
+    </body>
+</html>
