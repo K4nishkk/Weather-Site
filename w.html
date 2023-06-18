@@ -5,21 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Site</title>
     <link rel="stylesheet" href="w.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 
 <body>
 
     <div id="searchBar">
-        <span>Search City:</span>
-        <input id="cityInput" list="city" name="city" autocomplete="off" oninput="showCity()">
+        <input id="cityInput" list="city" name="city" autocomplete="off" placeholder="Search City" oninput="showCity()" onchange="displayCityData()">
         <datalist id="city"></datalist>
-        <button onclick="displayCityData()">submit</button>
     </div>
 
     <div id="content">
-        <img id="icon" src="#" alt="icon">
-        <div>Current Temp: <span id="temp_c"></span>°C</div>
-        <div>Current Time: <span id="curr_time"></span></div>
+        <div id="location">
+            <h4>Location</h4>
+            <div>Current Date & Time: <span id="curr_time"></span></div>
+            <div>City: <span id="cityName"></span></div>
+            <div>Region: <span id="region"></span></div>
+            <div>Country: <span id="country"></span></div>
+            <div>Latitude: <span id="lat"></span> Longitude: <span id="lon"></span></div>
+        </div>
+
+        <div id="current_weather">
+            <h4>Current Weather</h4>
+            <img id="icon" src="#" alt="icon">
+            <div>Current Temp: <span id="temp_c"></span>°C</div>
+            <div>Humidity: <span id='humidity'></span>%</div>
+            <div>Pressure: <span id='pressure_in'></span> inches</div>
+            <div>Cloud cover: <span id='cloud'></span>%</div>
+        </div>
+
+        <div id="aqi">
+            <h4>AQI</h4>
+            <div>CO: <span id="co"></span></div>
+            <div>NO2: <span id='no2'></span></div>
+            <div>SO2: <span id='so2'></span></div>
+            <div>O3: <span id='o3'></span></div>
+            <div>pm 2-5: <span id='pm2_5'></span></div>
+            <div>pm 10: <span id='pm10'></span></div>
+            <div>us-epa-index: <span id='us-epa-index'></span></div>
+            <div>gb-defra-index: <span id='gb-defra-index'></span></div>
+        </div>
     </div>
 
     <div id="futureDays"></div>
