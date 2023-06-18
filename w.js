@@ -3,7 +3,7 @@ async function getWeatherData(API_type, parameters) {
     // console.log(parameters);
     const response = await fetch('http://api.weatherapi.com/v1/' + API_type + '.json?key=ead138e18ecd4c94a5685551230306&' + parameters);
     const jsonData = await response.json();
-    console.log(jsonData);
+    // console.log(jsonData);
     return jsonData;
 }
 
@@ -14,14 +14,37 @@ async function getIPDetails() {
     return jsonData;
 }
 
-// function to display current weather data
+// function to display current weather and location data
 function currentWeather(location) {
-    const parameters = 'q=' + location;
+    const parameters = 'q=' + location + '&aqi=yes';
     getWeatherData('current', parameters).then(
         (weatherData) => {
-            document.getElementById('temp_c').innerHTML = weatherData.current.temp_c;
-            document.getElementById('icon').src = weatherData.current.condition.icon.substr(29, );
-            document.getElementById('curr_time').innerHTML = weatherData.location.localtime;
+            console.log(weatherData);
+
+            const curr = weatherData.current;
+            $('#icon').attr('src', curr.condition.icon.substr(29, ));
+            $('#temp_c').html(curr.temp_c);
+            $('#humidity').html(curr.humidity);
+            $('#pressure_in').html(curr.pressure_in);
+            $('#cloud').html(curr.cloud);
+
+            const loc = weatherData.location;
+            $('#curr_time').html(loc.localtime);
+            $('#cityName').html(loc.name);
+            $('#region').html(loc.region);
+            $('#country').html(loc.country);
+            $('#lat').html(loc.lat);
+            $('#lon').html(loc.lon);
+
+            const aqi = weatherData.current.air_quality;
+            $('#co').html(aqi.co);
+            $('#no2').html(aqi.no2);
+            $('#so2').html(aqi.so2);
+            $('#o3').html(aqi.o3);
+            $('#pm2_5').html(aqi.pm2_5);
+            $('#pm10').html(aqi.pm10);
+            $('#us-epa-index').html(aqi['us-epa-index']);
+            $('#gb-defra-index').html(aqi['gb-defra-index']);
         }
     )
 }
@@ -47,6 +70,7 @@ function dayForecast(location) {
         const parameters = 'q=' + location + '&date=' + futureDates(i);
         getWeatherData('forecast', parameters).then (
             (weatherData) => {
+                console.log(weatherData);
                 const futureDaysChild = document.createElement('div');
                 futureDaysChild.setAttribute('class', 'futureDaysChild');
                 const node = document.createTextNode(weatherData.forecast.forecastday[0].date + '  ' + weatherData.forecast.forecastday[0].day.maxtemp_c);
@@ -72,10 +96,10 @@ function hourForecast(location) {
 
     getWeatherData('forecast', parameters).then(
         (weatherData) => {
+            console.log(weatherData);
             let h = new Date(weatherData.location.localtime).getHours() + 1;
 
             for (let i = 0; i < 12; i++) {
-
                 let day = 0; // today
                 let hour = i + h;
 
@@ -86,7 +110,30 @@ function hourForecast(location) {
 
                 const futureHoursChild = document.createElement('div');
                 futureHoursChild.setAttribute('class', 'futureHoursChild');
-                const node = document.createTextNode(hour + ': ' + weatherData.forecast.forecastday[day].hour[hour].temp_c);
+
+                // time
+                let t;
+                if (hour > 12) {
+                    t = (hour - 12) + ':00 PM';
+                }
+                else if (hour == 0) {
+                    t = '12:00 AM';
+                }
+                else {
+                    t = hour + ':00 AM';
+                }
+                const time = document.createTextNode(t);
+                futureHoursChild.appendChild(time);
+
+                // icon
+                const icon = document.createElement('img');
+                icon.setAttribute('src', weatherData.forecast.forecastday[day].hour[hour].condition.icon.substr(29, ));
+                icon.setAttribute('height', '32px');
+                icon.setAttribute('width', '32px');
+                futureHoursChild.appendChild(icon);
+
+                // temp
+                const node = document.createTextNode(weatherData.forecast.forecastday[day].hour[hour].temp_c + '°C');
                 futureHoursChild.appendChild(node);
                 futureHours.appendChild(futureHoursChild);
             }
@@ -97,7 +144,6 @@ function hourForecast(location) {
 function displayMyCityData() {
     getIPDetails().then(
         (IP) => {
-            console.log(IP);
             const location = IP.lat + ',' + IP.lon;
             currentWeather(location);
             dayForecast(location);
@@ -138,4 +184,5 @@ function displayCityData() {
     currentWeather(location);
     dayForecast(location);
     hourForecast(location);
+    $('#cityInput').val('');
 }
