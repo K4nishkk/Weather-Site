@@ -36,3 +36,13 @@ body {
     border: none;
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
+#futureDays, #futureHours {
+    display: flex;
+    width: 98%;
+    background-color: rgba(200, 200, 200, 0.7);
+    margin: 1vw auto;
+    padding: 2vw;
+    border-radius: 2vw;
+    justify-content: space-around;
+}
