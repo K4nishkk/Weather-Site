@@ -21,18 +21,31 @@ function currentWeather(location) {
 
             const curr = weatherData.current;
             $('#icon').attr('src', curr.condition.icon.substr(29, ));
-            $('#temp_c').html(curr.temp_c);
+            $('#temp').html(curr.temp_c + '°C');
+            $('#feelsLike').html('Feels like ' + curr.feelslike_c + '°C');
             $('#humidity').html(curr.humidity);
-            $('#pressure_in').html(curr.pressure_in);
             $('#cloud').html(curr.cloud);
+            $('#precip_in').html(curr.precip_in);
+            $('#uv').html(curr.uv);
+            $('#vis_km').html(curr.vis_km);
 
+
+            // set date-month-year, day, hour-min, name-region-country
             const loc = weatherData.location;
-            $('#curr_time').html(loc.localtime);
-            $('#cityName').html(loc.name);
-            $('#region').html(loc.region);
-            $('#country').html(loc.country);
-            $('#lat').html(loc.lat);
-            $('#lon').html(loc.lon);
+            let curr_time = new Date(loc.localtime);
+            const date = curr_time.getDate();
+            const month = curr_time.getMonth();
+            const year = curr_time.getFullYear();
+            const day = curr_time.getDay();
+            const hour = curr_time.getHours();
+            const min = curr_time.getMinutes();
+
+            const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const dayArr = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+            curr_time = hour + ':' + min + '<br>' + date + ' ' + monthArr[month] + ', ' + year + '<br>' + dayArr[day];
+            $('#curr_time').html(curr_time);
+            $('#area').html(loc.name + ',<br>' + loc.region + ',<br>' + loc.country)
 
             // show just 2 significant digits for pollutants
             const aqi = weatherData.current.air_quality;
@@ -45,10 +58,9 @@ function currentWeather(location) {
             $('#us-epa-index').html(aqi['us-epa-index']);
             $('#gb-defra-index').html(aqi['gb-defra-index']);
 
+            $('#text').html(curr.condition.text);
+            $('#pressure_in').html(curr.pressure_in);
             $('#gust_kph').html(curr.gust_kph);
-            $('#precip_in').html(curr.precip_in);
-            $('#uv').html(curr.uv);
-            $('#vis_km').html(curr.vis_km);
             $('#wind_degree').html(curr.wind_degree);
             $('#wind_dir').html(curr.wind_dir);
             $('#wind_kph').html(curr.wind_kph);
