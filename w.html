@@ -6,75 +6,89 @@
     <title>Weather Site</title>
     <link rel="stylesheet" href="w.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
 
 <body>
-
-    <div id="searchBar">
+    <div id="navBar">
+        <div id="logo">Weather Site</div>        
         <input id="cityInput" list="city" name="city" autocomplete="off" placeholder="Search City" oninput="showCity()" onchange="displayCityData()">
         <datalist id="city"></datalist>
     </div>
 
-    <div id="location">
-        <h4>Location</h4>
-        <div>Current Date & Time: <span id="curr_time"></span></div>
-        <div>City: <span id="cityName"></span></div>
-        <div>Region: <span id="region"></span></div>
-        <div>Country: <span id="country"></span></div>
-        <div>Latitude: <span id="lat"></span> Longitude: <span id="lon"></span></div>
+    <div id="content">
+        <div id="location">
+            <h4>Location</h4>
+            <div>Current Date & Time: <span id="curr_time"></span></div>
+            <div>City: <span id="cityName"></span></div>
+            <div>Region: <span id="region"></span></div>
+            <div>Country: <span id="country"></span></div>
+            <div>Latitude: <span id="lat"></span> Longitude: <span id="lon"></span></div>
+        </div>
+    
+        <div id="current_weather">
+            <h4>Current Weather</h4>
+            <img id="icon" src="#" alt="icon">
+            <div>Current Temp: <span id="temp_c"></span>°C</div>
+            <div>Humidity: <span id='humidity'></span>%</div>
+            <div>Pressure: <span id='pressure_in'></span> inches</div>
+            <div>Cloud cover: <span id='cloud'></span>%</div>
+        </div>
+    
+        <div id="aqi">
+            <h4>AQI</h4>
+            <div>CO: <span id="co"></span> μg/m3</div>
+            <div>NO2: <span id='no2'></span> μg/m3</div>
+            <div>SO2: <span id='so2'></span> μg/m3</div>
+            <div>O3: <span id='o3'></span> μg/m3</div>
+            <div>pm 2-5: <span id='pm2_5'></span> μg/m3</div>
+            <div>pm 10: <span id='pm10'></span> μg/m3</div>
+            <div>us-epa-index: <span id='us-epa-index'></span></div>
+            <div>gb-defra-index: <span id='gb-defra-index'></span></div>
+        </div>
+    
+        <div id="futureDaysParent">
+            <div id="futureDaysHeading">
+                <h4>Date</h4>
+                <h4>Max Temp</h4>
+                <h4>Min Temp</h4>
+            </div>
+            <div id="futureDays">
+                <!-- <div class="futureDaysChild">
+                    <div><h4>Date</h4></div>
+                    <div><h4>Max Temp</h4></div>
+                    <div><h4>Min Temp</h4></div>
+                </div> -->
+            </div>
+        </div>
+    
+        <div id="futureHoursParent">
+            <div id ="futureHoursHeading"><h4>Hourly Data</h4></div>
+            <div id="futureHours"></div>
+        </div>
+    
+        <div id="astroData">
+            <h4>Astronomy</h4>
+            <div>Sunrise: <span id='sunrise'></span></div>
+            <div>Sunset: <span id='sunset'></span></div>
+            <div>Moonrise: <span id='moonrise'></span></div>
+            <div>Moonset: <span id='moonset'></span></div>
+            <div>Moon phase: <span id='moon_phase'></span></div>
+        </div>
+    
+        <div id="otherInfo">
+            <h4>Other Info</h4>
+            <div>Gust: <span id='gust_kph'></span> km/h</div>
+            <div>Precipitation: <span id='precip_in'></span> in</div>
+            <div>UV: <span id='uv'></span></div>
+            <div>Visibility: <span id='vis_km'></span> km</div>
+            <div>Wind degree: <span id='wind_degree'></span></div>
+            <div>Wind direction: <span id='wind_dir'></span></div>
+            <div>Wind speed: <span id='wind_kph'></span> km/h</div>
+        </div>
     </div>
-
-    <div id="current_weather">
-        <h4>Current Weather</h4>
-        <img id="icon" src="#" alt="icon">
-        <div>Current Temp: <span id="temp_c"></span>°C</div>
-        <div>Humidity: <span id='humidity'></span>%</div>
-        <div>Pressure: <span id='pressure_in'></span> inches</div>
-        <div>Cloud cover: <span id='cloud'></span>%</div>
-    </div>
-
-    <div id="aqi">
-        <h4>AQI</h4>
-        <div>CO: <span id="co"></span> μg/m3</div>
-        <div>NO2: <span id='no2'></span> μg/m3</div>
-        <div>SO2: <span id='so2'></span> μg/m3</div>
-        <div>O3: <span id='o3'></span> μg/m3</div>
-        <div>pm 2-5: <span id='pm2_5'></span> μg/m3</div>
-        <div>pm 10: <span id='pm10'></span> μg/m3</div>
-        <div>us-epa-index: <span id='us-epa-index'></span></div>
-        <div>gb-defra-index: <span id='gb-defra-index'></span></div>
-    </div>
-
-    <div id="futureDays">
-        <!-- <div class="futureDaysChild">
-            <div><h4>Date</h4></div>
-            <div><h4>Max Temp</h4></div>
-            <div><h4>Min Temp</h4></div>
-        </div> -->
-    </div>
-
-    <div id="futureHours"></div>
-
-    <div id="astroData">
-        <h4>Astronomy</h4>
-        <div>Sunrise: <span id='sunrise'></span></div>
-        <div>Sunset: <span id='sunset'></span></div>
-        <div>Moonrise: <span id='moonrise'></span></div>
-        <div>Moonset: <span id='moonset'></span></div>
-        <div>Moon phase: <span id='moon_phase'></span></div>
-    </div>
-
-    <div id="otherInfo">
-        <h4>Other Info</h4>
-        <div>Gust: <span id='gust_kph'></span> km/h</div>
-        <div>Precipitation: <span id='precip_in'></span> in</div>
-        <div>UV: <span id='uv'></span></div>
-        <div>Visibility: <span id='vis_km'></span> km</div>
-        <div>Wind degree: <span id='wind_degree'></span></div>
-        <div>Wind direction: <span id='wind_dir'></span></div>
-        <div>Wind speed: <span id='wind_kph'></span> km/h</div>
-    </div>
-
 </body>
 <script src="w.js"></script>
 </html>
