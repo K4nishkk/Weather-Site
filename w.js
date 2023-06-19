@@ -99,7 +99,7 @@ function dayForecast(location) {
                 max.appendChild(node);
                 futureDaysChild.appendChild(max);
 
-                futureDays.insertBefore(futureDaysChild, futureDays.childNodes[i - 1]);
+                futureDays.appendChild(futureDaysChild);
             }
         )
     }
