@@ -10,6 +10,12 @@ body {
     background-color: #fcfaf8;
 }
 
+.heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3vw;
+    width: 100%;
+}
+
 /* Navigation bar */
 #navBar {
     background-image: linear-gradient(45deg, black 60%, grey 40%);
@@ -41,22 +47,21 @@ body {
 #content {
     display: grid;
     grid-template-areas:
-        'loc curr aqi days'
-        'hours hours hours days';
+        'curr curr aqi days'
+        'curr curr astro days'
+        'hours hours hours info';
     width: 98%;
     margin: 1vw auto;
     gap: 1vw;
 }
 
-#futureDaysParent, #futureHoursParent, #current_weather, #location, #aqi, #astroData, #otherInfo{
+#futureDaysParent, #futureHoursParent, #current_weather, #aqi, #astroData, #otherInfo{
     width: 100%;
     height: 100%;
     background-color: rgba(200, 200, 200, 0.7);
     margin: auto;
-    text-align: center;
     padding: 2vw;
     border-radius: 2vw;
-    justify-content: space-around;
 }
 
 #futureDaysParent {
@@ -86,32 +91,58 @@ body {
 }
 
 #current_weather {
+    display: flex;
     grid-area: curr;
 }
 
-#location {
-    grid-area: loc;
+#current_weather > div {
+    padding: 0 1vw;
+    width: 50%;
 }
 
 #aqi {
     grid-area: aqi;
 }
 
-/* #astroData {
+#astroData {
     grid-area: astro;
 }
 
 #otherInfo {
     grid-area: info;
-} */
-
-img {
-    display: block;
-    margin: auto;
 }
 
 .futureDaysChild {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+
+.futureHoursChild > img {
+    display: block;
+    margin: auto;
+}
+
+#temp{
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 4vw;
+}
+
+#curr_time, #area, #feelsLike, #humidity, #precip_in, #cloud, #uv, #vis_km{
+    font-family: 'Julius Sans One', sans-serif;
+    font-size: 1.5vw;
+}
+
+#current_weather1 {
+    border-right: groove;
+    border-color: #fcfaf8;
+}
+
+#current_weather2 {
+    margin-top: 32px;
+}
+
+#current_weather2 > div {
+    font-family: 'Julius Sans One', sans-serif;
+    font-size: 1.5vw;
 }
