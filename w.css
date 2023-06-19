@@ -7,31 +7,28 @@
 }
 
 body {
-    background-image: linear-gradient(to right, rgb(2, 2, 65), rgb(4, 4, 117), rgb(4, 4, 170));
-    background-size: auto;
-    display: grid;
-    grid-template-areas: 
-        'header header header header'
-        'loc curr aqi days'
-        'hours hours hours days';
-    width: 98%;
-    margin: 1vw auto;
-    gap: 1vw;
+    background-color: #fcfaf8;
 }
 
-#searchBar {
-    background-color: rgba(200, 200, 200, 0.7);
+/* Navigation bar */
+#navBar {
+    background-image: linear-gradient(45deg, black 60%, grey 40%);
     width: 100%;
-    margin: auto;
-    text-align: center;
     padding: 2vw;
-    border-radius: 2vw;
-    grid-column: 1 / 5;
+    display: flex;
+    justify-content: space-between;
+}
+
+#logo {
+    color: white;   
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3vw;
 }
 
 #cityInput {
+    width: 20%;
     font-size: 1vw;
-    padding: 0.5vw;
+    padding: 1vw;
     border: none;
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -40,7 +37,18 @@ body {
     outline: none;
 }
 
-#futureDays, #futureHours, #current_weather, #location, #aqi, #astroData, #otherInfo{
+/* Main content */
+#content {
+    display: grid;
+    grid-template-areas:
+        'loc curr aqi days'
+        'hours hours hours days';
+    width: 98%;
+    margin: 1vw auto;
+    gap: 1vw;
+}
+
+#futureDaysParent, #futureHoursParent, #current_weather, #location, #aqi, #astroData, #otherInfo{
     width: 100%;
     height: 100%;
     background-color: rgba(200, 200, 200, 0.7);
@@ -51,16 +59,30 @@ body {
     justify-content: space-around;
 }
 
+#futureDaysParent {
+    grid-area: days;
+}
+
 #futureDays {
     flex-direction: column;
-    grid-area: days;
     height: 100%;
     display: flex;
+    justify-content: space-around;
+}
+
+#futureDaysHeading {
+    display: flex;
+    justify-content: space-around;
+}
+
+#futureHoursParent {
+    grid-area: hours;
 }
 
 #futureHours {
-    grid-area: hours;
     display: flex;
+    justify-content: space-around;
+    padding-top: 0.5vw
 }
 
 #current_weather {
@@ -74,6 +96,14 @@ body {
 #aqi {
     grid-area: aqi;
 }
+
+/* #astroData {
+    grid-area: astro;
+}
+
+#otherInfo {
+    grid-area: info;
+} */
 
 img {
     display: block;
