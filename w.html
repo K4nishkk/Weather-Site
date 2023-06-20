@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -31,16 +32,24 @@
                 <div id="area"></div>
             </div>
             <div id="current_weather2">
+                <div id='text'></div>
                 <div>Humidity: <span id='humidity'></span>%</div>
                 <div>Cloud cover: <span id='cloud'></span>%</div>
                 <div>Precipitation: <span id='precip_in'></span> in</div>
                 <div>UV index: <span id='uv'></span></div>
                 <div>Visibility: <span id='vis_km'></span> km</div>
             </div>
+            <div id="current_weather3">
+                <div>Pressure: <span id='pressure_in'></span> in</div>
+                <div>Gust: <span id='gust_kph'></span> km/h</div>
+                <div>Wind degree: <span id='wind_degree'></span></div>
+                <div>Wind direction: <span id='wind_dir'></span></div>
+                <div>Wind speed: <span id='wind_kph'></span> km/h</div>
+            </div>
         </div>
     
         <div id="aqi">
-            <h4>AQI</h4>
+            <div class="heading">AQI</div>
             <div>CO: <span id="co"></span> μg/m3</div>
             <div>NO2: <span id='no2'></span> μg/m3</div>
             <div>SO2: <span id='so2'></span> μg/m3</div>
@@ -52,36 +61,27 @@
         </div>
     
         <div id="futureDaysParent">
-            <div id="futureDaysHeading">
-                <h4>Date</h4>
-                <h4>Max Temp</h4>
-                <h4>Min Temp</h4>
-            </div>
+            <div id="futureDaysHeading" class="heading">Daily</div>
             <div id="futureDays"></div>
         </div>
     
         <div id="futureHoursParent">
-            <div id ="futureHoursHeading"><h4>Hourly Data</h4></div>
+            <div id ="futureHoursHeading" class="heading">Hourly</div>
             <div id="futureHours"></div>
         </div>
     
         <div id="astroData">
-            <h4>Astronomy</h4>
+            <div class="heading">Astronomy</div>
             <div>Sunrise: <span id='sunrise'></span></div>
             <div>Sunset: <span id='sunset'></span></div>
             <div>Moonrise: <span id='moonrise'></span></div>
             <div>Moonset: <span id='moonset'></span></div>
             <div>Moon phase: <span id='moon_phase'></span></div>
+            <div>Moon Illumination: <span id='moon_illum'></span>%</div>
         </div>
     
         <div id="otherInfo">
-            <h4>Other Info</h4>
-            <div><span id='text'></span> </div>
-            <div>Pressure: <span id='pressure_in'></span> inches</div>
-            <div>Gust: <span id='gust_kph'></span> km/h</div>
-            <div>Wind degree: <span id='wind_degree'></span></div>
-            <div>Wind direction: <span id='wind_dir'></span></div>
-            <div>Wind speed: <span id='wind_kph'></span> km/h</div>
+            <div class="heading">Other Info<div>
         </div>
     </div>
 </body>
