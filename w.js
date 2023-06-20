@@ -12,6 +12,10 @@ async function getIPDetails() {
     return jsonData;
 }
 
+// for use in currentWeather and dayForecast functions
+const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const dayArr = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
 // function to display current weather and location data
 function currentWeather(location) {
     const parameters = 'q=' + location + '&aqi=yes';
@@ -23,12 +27,6 @@ function currentWeather(location) {
             $('#icon').attr('src', curr.condition.icon.substr(29, ));
             $('#temp').html(curr.temp_c + '°C');
             $('#feelsLike').html('Feels like ' + curr.feelslike_c + '°C');
-            $('#humidity').html(curr.humidity);
-            $('#cloud').html(curr.cloud);
-            $('#precip_in').html(curr.precip_in);
-            $('#uv').html(curr.uv);
-            $('#vis_km').html(curr.vis_km);
-
 
             // set date-month-year, day, hour-min, name-region-country
             const loc = weatherData.location;
@@ -40,12 +38,22 @@ function currentWeather(location) {
             const hour = curr_time.getHours();
             const min = curr_time.getMinutes();
 
-            const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            const dayArr = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
             curr_time = hour + ':' + min + '<br>' + date + ' ' + monthArr[month] + ', ' + year + '<br>' + dayArr[day];
             $('#curr_time').html(curr_time);
             $('#area').html(loc.name + ',<br>' + loc.region + ',<br>' + loc.country)
+
+            $('#humidity').html(curr.humidity);
+            $('#cloud').html(curr.cloud);
+            $('#precip_in').html(curr.precip_in);
+            $('#uv').html(curr.uv);
+            $('#vis_km').html(curr.vis_km);
+
+            $('#text').html(curr.condition.text);
+            $('#pressure_in').html(curr.pressure_in);
+            $('#gust_kph').html(curr.gust_kph);
+            $('#wind_degree').html(curr.wind_degree);
+            $('#wind_dir').html(curr.wind_dir);
+            $('#wind_kph').html(curr.wind_kph);
 
             // show just 2 significant digits for pollutants
             const aqi = weatherData.current.air_quality;
@@ -57,13 +65,6 @@ function currentWeather(location) {
             $('#pm10').html(aqi.pm10.toFixed(2));
             $('#us-epa-index').html(aqi['us-epa-index']);
             $('#gb-defra-index').html(aqi['gb-defra-index']);
-
-            $('#text').html(curr.condition.text);
-            $('#pressure_in').html(curr.pressure_in);
-            $('#gust_kph').html(curr.gust_kph);
-            $('#wind_degree').html(curr.wind_degree);
-            $('#wind_dir').html(curr.wind_dir);
-            $('#wind_kph').html(curr.wind_kph);
         }
     )
 }
@@ -78,10 +79,8 @@ function futureDates(n) {
 
 // function to get next n days weather forecast (needs next n days data)
 function dayForecast(location) {
-    // remove old children
-    while (document.getElementsByClassName('futureDaysChild').length > 0) {
-        document.getElementsByClassName('futureDaysChild')[0].remove();
-    }
+    // remove old children (jquery to empty container)
+    $('#futureDays').empty();
 
     // add new children
     const futureDays = document.getElementById('futureDays');
@@ -94,9 +93,11 @@ function dayForecast(location) {
                 futureDaysChild.setAttribute('class', 'futureDaysChild');
 
                 // date
+                let date = new Date(weatherData.forecast.forecastday[0].date);
                 const dt = document.createElement('div');
-                let node = document.createTextNode(weatherData.forecast.forecastday[0].date);
-                dt.appendChild(node);
+                dt.appendChild(document.createTextNode(date.getDate() + ' ' + monthArr[date.getMonth()]));
+                dt.appendChild(document.createElement('br'));
+                dt.appendChild(document.createTextNode(dayArr[date.getDay()].substring(0, 3)));
                 futureDaysChild.appendChild(dt);
 
                 // min temp
@@ -120,9 +121,7 @@ function dayForecast(location) {
 // function to get next 12 hours of weather forecast (needs today's and tommorow's data)
 function hourForecast(location) {
     // remove old children
-    while (document.getElementsByClassName('futureHoursChild').length != 0) {
-        document.getElementsByClassName('futureHoursChild')[0].remove();
-    }
+    $('#futureHours').empty();
 
     // add new children
     const futureHours = document.getElementById('futureHours');
@@ -132,6 +131,7 @@ function hourForecast(location) {
 
     getWeatherData('forecast', parameters).then(
         (weatherData) => {
+            console.log(weatherData);
             let h = new Date(weatherData.location.localtime).getHours() + 1;
 
             for (let i = 0; i < 12; i++) {
@@ -186,6 +186,7 @@ function astroData(location) {
             $('#moonrise').html(astro.moonrise);
             $('#moonset').html(astro.moonset);
             $('#moon_phase').html(astro.moon_phase);
+            $('#moon_illum').html(astro.moon_illumination);
         }
     )
 }
