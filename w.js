@@ -1,13 +1,13 @@
 // function to get weather info in json format
 async function getWeatherData(API_type, parameters) {
-    const response = await fetch('http://api.weatherapi.com/v1/' + API_type + '.json?key=ead138e18ecd4c94a5685551230306&' + parameters);
+    const response = await fetch('https://api.weatherapi.com/v1/' + API_type + '.json?key=ead138e18ecd4c94a5685551230306&' + parameters);
     const jsonData = await response.json();
     return jsonData;
 }
 
 // function to get location detail with current ip address
 async function getIPDetails() {
-    const response = await fetch('http://ip-api.com/json/');
+    const response = await fetch('https://ipapi.co/json/');
     const jsonData = await response.json();
     return jsonData;
 }
@@ -194,7 +194,7 @@ function astroData(location) {
 function displayMyCityData() {
     getIPDetails().then(
         (IP) => {
-            const location = IP.lat + ',' + IP.lon;
+            const location = IP.latitude + ',' + IP.longitude;
             currentWeather(location);
             dayForecast(location);
             hourForecast(location);
