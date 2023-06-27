@@ -96,8 +96,10 @@ function dayForecast(location) {
                 const futureDaysChild = document.createElement('div');
                 futureDaysChild.setAttribute('class', 'futureDaysChild');
 
+                const forecast = weatherData.forecast.forecastday[0];
+
                 // date
-                let date = new Date(weatherData.forecast.forecastday[0].date);
+                let date = new Date(forecast.date);
                 const dt = document.createElement('div');
                 dt.setAttribute('class', 'dayDate');
                 dt.appendChild(document.createTextNode(date.getDate() + ' ' + monthArr[date.getMonth()]));
@@ -107,17 +109,10 @@ function dayForecast(location) {
 
                 // min temp
                 const min = document.createElement('div');
-                min.setAttribute('class', 'dayMin');
-                let node = document.createTextNode(weatherData.forecast.forecastday[0].day.maxtemp_c + '°C');
+                min.setAttribute('class', 'dayTemp');
+                let node = document.createTextNode(forecast.day.maxtemp_c.toFixed(0) + '/' + forecast.day.mintemp_c.toFixed(0) + '°C');
                 min.appendChild(node);
                 futureDaysChild.appendChild(min);
-
-                // max temp
-                const max = document.createElement('div');
-                max.setAttribute('class', 'dayMax');
-                node = document.createTextNode(weatherData.forecast.forecastday[0].day.mintemp_c + '°C');
-                max.appendChild(node);
-                futureDaysChild.appendChild(max);
 
                 futureDays.appendChild(futureDaysChild);
             }
@@ -141,7 +136,7 @@ function hourForecast(location) {
             console.log(weatherData);
             let h = new Date(weatherData.location.localtime).getHours() + 1;
 
-            for (let i = 0; i < 12; i++) {
+            for (let i = 0; i < 24; i++) {
                 let day = 0; // today
                 let hour = i + h;
 
@@ -252,6 +247,7 @@ function displayCityData() {
     hourForecast(location);
     // astroData(location);
     $('#cityInput').val('');
+    $('#futureHours').css('transform', 'translateX(0px)');
 }
 
 cityInput.addEventListener('change', displayCityData);
