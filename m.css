@@ -103,19 +103,42 @@
 
 /* Hour Forecast */
 #futureHoursParent {
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
     color: white;
     font-size: 1vw;
     font-family: 'ABeeZee', sans-serif;
+    justify-content: center;
 }
 
 #futureHoursHeading {
     font-size: 2vw;
-    padding: 2vw
+    padding: 2vw;
+    grid-column: 1 / 4;
 }
 
 #futureHours {
     display: flex;
-    justify-content: space-around;
+    justify-content: start;
+    transition-timing-function: ease-in-out;
+}
+
+#futureHoursContainer {
+    /* width: 80%; */
+    overflow: scroll;
+}
+
+/* hide scroll bar */
+#futureHoursContainer::-webkit-scrollbar {
+    /* for chrome, safari and opera */
+    display: none;
+}
+
+#futureHoursContainer {
+    -ms-overflow-style: none;
+    /* IE and edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .futureHoursChild {
@@ -124,11 +147,15 @@
     text-align: center;
     border-left: solid;
     padding: 0.25vw;
-    flex: 1 1 0px; /* make all items occupy max width */
+    flex: 0 0 8.05vw;
 }
 
 .futureHoursChild:first-child {
     border: none;
+}
+
+#after, #before {
+    cursor: pointer;
 }
 
 /* Day forecast */
@@ -147,20 +174,20 @@
     display: grid;
     justify-content: space-around;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 80%;
+    margin: auto;
 }
 
 .futureDaysChild {
-    display: grid;
-    grid-template-columns: auto auto;
     border-left: solid;
     padding: 0.25vw;
     justify-content: space-around;
 }
 
-.dayDate{
-    grid-column: 1 / 3;
+.dayDate, .dayTemp{
     margin: auto;
     text-align: center;
+    padding: 0.5vw;
 }
 
 .futureDaysChild:first-child {
