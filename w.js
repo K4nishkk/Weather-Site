@@ -1,3 +1,5 @@
+import {locate} from "./m.js"
+
 // function to get weather info in json format
 async function getWeatherData(API_type, parameters) {
     const response = await fetch('https://api.weatherapi.com/v1/' + API_type + '.json?key=ead138e18ecd4c94a5685551230306&' + parameters);
@@ -36,11 +38,11 @@ function currentWeather(location) {
             const year = curr_time.getFullYear();
             const day = curr_time.getDay();
             const hour = curr_time.getHours();
-            const min = curr_time.getMinutes();
+            const min = ("0" + curr_time.getMinutes()).slice(-2);
 
             curr_time = hour + ':' + min + '<br>' + date + ' ' + monthArr[month] + ', ' + year + '<br>' + dayArr[day];
             $('#curr_time').html(curr_time);
-            $('#area').html(loc.name + ',<br>' + loc.region + ',<br>' + loc.country)
+            $('#loc').html(loc.name + ',<br>' + loc.region + ',<br>' + loc.country)
 
             $('#humidity').html(curr.humidity);
             $('#cloud').html(curr.cloud);
@@ -65,6 +67,8 @@ function currentWeather(location) {
             $('#pm10').html(aqi.pm10.toFixed(2));
             $('#us-epa-index').html(aqi['us-epa-index']);
             $('#gb-defra-index').html(aqi['gb-defra-index']);
+
+            locate(weatherData.location.lon, weatherData.location.lat);
         }
     )
 }
@@ -95,6 +99,7 @@ function dayForecast(location) {
                 // date
                 let date = new Date(weatherData.forecast.forecastday[0].date);
                 const dt = document.createElement('div');
+                dt.setAttribute('class', 'dayDate');
                 dt.appendChild(document.createTextNode(date.getDate() + ' ' + monthArr[date.getMonth()]));
                 dt.appendChild(document.createElement('br'));
                 dt.appendChild(document.createTextNode(dayArr[date.getDay()].substring(0, 3)));
@@ -102,12 +107,14 @@ function dayForecast(location) {
 
                 // min temp
                 const min = document.createElement('div');
-                node = document.createTextNode(weatherData.forecast.forecastday[0].day.maxtemp_c + '°C');
+                min.setAttribute('class', 'dayMin');
+                let node = document.createTextNode(weatherData.forecast.forecastday[0].day.maxtemp_c + '°C');
                 min.appendChild(node);
                 futureDaysChild.appendChild(min);
 
                 // max temp
                 const max = document.createElement('div');
+                max.setAttribute('class', 'dayMax');
                 node = document.createTextNode(weatherData.forecast.forecastday[0].day.mintemp_c + '°C');
                 max.appendChild(node);
                 futureDaysChild.appendChild(max);
@@ -149,13 +156,13 @@ function hourForecast(location) {
                 // time
                 let t;
                 if (hour > 12) {
-                    t = (hour - 12) + ':00 PM';
+                    t = (hour - 12) + ' PM';
                 }
                 else if (hour == 0) {
-                    t = '12:00 AM';
+                    t = '12 AM';
                 }
                 else {
-                    t = hour + ':00 AM';
+                    t = hour + ' AM';
                 }
                 const time = document.createTextNode(t);
                 futureHoursChild.appendChild(time);
@@ -177,7 +184,7 @@ function hourForecast(location) {
 }
 
 function astroData(location) {
-    parameters = 'q=' + location;
+    let parameters = 'q=' + location;
     getWeatherData('astronomy', parameters).then(
         (weatherData) => {
             const astro = weatherData.astronomy.astro;
@@ -191,6 +198,8 @@ function astroData(location) {
     )
 }
 
+// ********************************************** DISPLAY MY CITY DATA *******************************************************
+
 function displayMyCityData() {
     getIPDetails().then(
         (IP) => {
@@ -198,7 +207,7 @@ function displayMyCityData() {
             currentWeather(location);
             dayForecast(location);
             hourForecast(location);
-            astroData(location);
+            // astroData(location);
         }
     )
 }
@@ -206,9 +215,13 @@ function displayMyCityData() {
 // called when page gets reloaded
 displayMyCityData();
 
+// ********************************************** SEARCH FOR ANOTHER CITY ****************************************************
+
+const cityInput = document.getElementById('cityInput');
+
 // function for search/autocomplete city feature (can be made better)
 function showCity() {
-    const userInput = 'q=' + document.getElementById('cityInput').value;
+    const userInput = 'q=' + cityInput.value;
     getWeatherData('search', userInput).then(
         (weatherData) => {
             // remove old options 
@@ -229,12 +242,16 @@ function showCity() {
     )
 }
 
+cityInput.addEventListener('input', showCity);
+
 // display data of particular city entered in input
 function displayCityData() {
-    const location = document.getElementById('cityInput').value;
+    const location = cityInput.value;
     currentWeather(location);
     dayForecast(location);
     hourForecast(location);
-    astroData(location);
+    // astroData(location);
     $('#cityInput').val('');
 }
+
+cityInput.addEventListener('change', displayCityData);
