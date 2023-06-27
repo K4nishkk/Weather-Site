@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!--JQuery-->
+
+    <!--Mapboxgl js-->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+
+    <title>Weather-Site-Map</title>
+
+    <!--google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet"> <!--logo-->
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet"> <!--temp-->
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet"> <!--other data-->
+
+    <link rel="stylesheet" href="m.css">
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <div id="content">
+        <div id="left">
+            <div>
+                <div id="temp"></div>
+                <div id="feelsLike"></div>
+            </div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"> <!--clock svg-->
+                    <path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/>
+                </svg>
+                <div id="curr_time"></div>
+            </div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"> <!--location svg-->
+                    <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/>
+                </svg>
+                <div id="loc"></div>
+            </div>
+        </div>
+
+        <div id="right">
+            <div id="navBar">
+                <div id="logo">Weather Site</div>        
+                <input id="cityInput" list="city" name="city" autocomplete="off" placeholder="Search City">
+                <datalist id="city"></datalist>
+            </div>
+            
+            <div id="misc">
+                <div id="weather">
+                    <img id="icon" src="#" alt="icon">
+                    <div id='text'></div>
+                </div>
+                <div>
+                    <div>Humidity: <span id='humidity'></span>%</div>
+                    <div>Cloud Cover: <span id='cloud'></span>%</div>
+                    <div>Precipitation: <span id='precip_in'></span> in</div>
+                    <div>UV Index: <span id='uv'></span></div>
+                    <div>Visibility: <span id='vis_km'></span> km</div>
+                </div>
+                <div>
+                    <div>Pressure: <span id='pressure_in'></span> in</div>
+                    <div>Gust: <span id='gust_kph'></span> km/h</div>
+                    <div>Wind degree: <span id='wind_degree'></span></div>
+                    <div>Wind direction: <span id='wind_dir'></span></div>
+                    <div>Wind speed: <span id='wind_kph'></span> km/h</div>
+                </div>
+            </div>
+
+            <div id="futureHoursParent">
+                <div id ="futureHoursHeading" class="heading">Hourly</div>
+                <div id="futureHours"></div>
+            </div>
+    
+            <div id="futureDaysParent">
+                <div id="futureDaysHeading" class="heading">Daily</div>
+                <div id="futureDays"></div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+<!--External script files-->
+<script type="module" src="w.js"></script>
+<script type="module" src="m.js"></script>
+
+</html>
