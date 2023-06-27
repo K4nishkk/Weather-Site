@@ -75,8 +75,20 @@
             </div>
 
             <div id="futureHoursParent">
-                <div id ="futureHoursHeading" class="heading">Hourly</div>
-                <div id="futureHours"></div>
+                <div id="futureHoursHeading" class="heading">Hourly</div>
+                <div style="display: grid; justify-content: end; align-items: center;" id="before">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" style="fill: #fff;">
+                        <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z"/>
+                    </svg>
+                </div>
+                <div id="futureHoursContainer">
+                    <div id="futureHours"></div>
+                </div>
+                <div style="display: grid; justify-content: start; align-items: center;" id="after">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" style="fill: #fff;">
+                        <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                    </svg>
+                </div>
             </div>
     
             <div id="futureDaysParent">
@@ -91,5 +103,6 @@
 <!--External script files-->
 <script type="module" src="w.js"></script>
 <script type="module" src="m.js"></script>
+<script src="s.js"></script>
 
 </html>
