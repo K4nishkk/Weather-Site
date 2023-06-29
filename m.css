@@ -12,25 +12,42 @@
     z-index: -1;
 }
 
+img {
+    margin: auto;
+}
+
 /* Navigation bar */
 #navBar {
+    display: flex;
+    justify-content: right;
+    gap: 0.5vw;
     width: 100%;
     padding: 2vw;
-    display: flex;
-    justify-content: space-between;
 }
 
 #logo {
     color: white;   
     font-family: 'Bebas Neue', sans-serif;
     font-size: 3vw;
+    margin-right: auto;
+}
+
+#aqi, #astro, #alerts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid white;
+    color: white;
+    height: inherit;
+    font-family: 'Oswald', sans-serif;
+    font-size: 2vw;
+    width: 7.5%;
 }
 
 #cityInput {
-    z-index: 500;
     width: 30%;
     font-size: 1vw;
-    padding: 1vw;
+    padding-left: 1vw;
     border: none;
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -41,23 +58,23 @@
 
 /* Content on top of map */
 #content {
-    width: 100%;
     display: flex;
+    width: 100%;
 }
 
 /* Left side of content */
 #left {
     display: flex;
-    width: 40%;
-    padding: 3vw;
     align-items: center;
     justify-content: space-between;
+    width: 40%;
+    padding: 3vw;
 }
 
 #temp {
     font-size: 4vw;
     font-family: 'Lilita One', cursive;
-    background: -webkit-linear-gradient(rgb(26, 0, 219), rgb(4, 149, 197));
+    background: -webkit-linear-gradient(rgb(26, 0, 219), rgb(4, 149, 197)); /* font color gradient */
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -76,11 +93,25 @@
 /* Right side of content */
 #right {
     position: fixed;
+    overflow-y: scroll;
     width: 60%;
     right: 0;
-    background-image:linear-gradient(rgba(26, 0, 219, 0.8), rgba(4, 149, 197, 0.8)) ;
+    background-image:linear-gradient(rgba(26, 0, 219, 0.8), rgba(4, 149, 197, 0.8));
     height: 100%;
     backdrop-filter: blur(2px);
+}
+
+/* hide scroll bar */
+#right::-webkit-scrollbar {
+    /* for chrome, safari and opera */
+    display: none;
+}
+
+#right {
+    -ms-overflow-style: none;
+    /* IE and edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 #misc {
@@ -89,15 +120,18 @@
 }
 
 #misc > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     color: white;
-    padding: 2vw;
+    padding: 0 2vw;
     border-left: solid;
     height: 100%;
 }
 
 #weather {
     text-align: center;
-    border-left: none !important;
+    border: none !important;
     font-size: 2vw !important;
 }
 
@@ -105,16 +139,16 @@
 #futureHoursParent {
     display: grid;
     grid-template-columns: 10% 80% 10%;
+    justify-content: center;
     color: white;
     font-size: 1vw;
     font-family: 'ABeeZee', sans-serif;
-    justify-content: center;
 }
 
 #futureHoursHeading {
+    grid-column: 1 / 4;
     font-size: 2vw;
     padding: 2vw;
-    grid-column: 1 / 4;
 }
 
 #futureHours {
@@ -124,38 +158,34 @@
 }
 
 #futureHoursContainer {
-    /* width: 80%; */
-    overflow: scroll;
-}
-
-/* hide scroll bar */
-#futureHoursContainer::-webkit-scrollbar {
-    /* for chrome, safari and opera */
-    display: none;
-}
-
-#futureHoursContainer {
-    -ms-overflow-style: none;
-    /* IE and edge */
-    scrollbar-width: none;
-    /* Firefox */
+    overflow: hidden;
 }
 
 .futureHoursChild {
     display: flex;
     flex-direction: column;
+    flex: 0 0 8.05vw;
     text-align: center;
     border-left: solid;
     padding: 0.25vw;
-    flex: 0 0 8.05vw;
 }
 
 .futureHoursChild:first-child {
     border: none;
 }
 
-#after, #before {
+#dotIndicator {
+    grid-column: 1 / 4;
+    text-align: center;
+    font-size: 2vw;
+}
+
+#after, #before, #aqi, #astro, #alerts {
     cursor: pointer;
+}
+
+#d0, #d1, #d2, #d3 {
+    transition: color 1s;
 }
 
 /* Day forecast */
@@ -181,7 +211,6 @@
 .futureDaysChild {
     border-left: solid;
     padding: 0.25vw;
-    justify-content: space-around;
 }
 
 .dayDate, .dayTemp{
@@ -192,8 +221,4 @@
 
 .futureDaysChild:first-child {
     border: none;
-}
-
-img {
-    margin: auto;
 }
