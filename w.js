@@ -107,12 +107,12 @@ function dayForecast(location) {
                 dt.appendChild(document.createTextNode(dayArr[date.getDay()].substring(0, 3)));
                 futureDaysChild.appendChild(dt);
 
-                // min temp
-                const min = document.createElement('div');
-                min.setAttribute('class', 'dayTemp');
+                // temp
+                const dayTemp = document.createElement('div');
+                dayTemp.setAttribute('class', 'dayTemp');
                 let node = document.createTextNode(forecast.day.maxtemp_c.toFixed(0) + '/' + forecast.day.mintemp_c.toFixed(0) + '°C');
-                min.appendChild(node);
-                futureDaysChild.appendChild(min);
+                dayTemp.appendChild(node);
+                futureDaysChild.appendChild(dayTemp);
 
                 futureDays.appendChild(futureDaysChild);
             }
